@@ -160,7 +160,8 @@ async def delete_organization(
     if not organization:
         raise HTTPException(status_code=404, detail="Organization not found")
     
-    await db.delete(organization)
+    # BUG FIX: db.delete() is synchronous in SQLAlchemy 2.0 - don't await it
+    db.delete(organization)
     await db.commit()
 
 

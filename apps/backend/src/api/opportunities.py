@@ -115,22 +115,6 @@ async def list_opportunities(
     )
 
 
-@router.get("/{opportunity_id}", response_model=OpportunityResponse)
-async def get_opportunity(
-    opportunity_id: uuid.UUID,
-    db: AsyncSession = Depends(get_db),
-) -> OpportunityResponse:
-    """Get a specific opportunity by ID."""
-    stmt = select(Opportunity).where(Opportunity.id == opportunity_id)
-    result = await db.execute(stmt)
-    opportunity = result.scalar_one_or_none()
-    
-    if not opportunity:
-        raise HTTPException(status_code=404, detail="Opportunity not found")
-    
-    return OpportunityResponse.model_validate(opportunity)
-
-
 @router.post("", response_model=OpportunityResponse, status_code=201)
 async def create_opportunity(
     data: OpportunityCreate,
@@ -144,6 +128,8 @@ async def create_opportunity(
     return OpportunityResponse.model_validate(opportunity)
 
 
+# BUG FIX: Moved /naics/{naics_code} BEFORE /{opportunity_id} to ensure
+# specific routes are matched before generic path parameters
 @router.get("/naics/{naics_code}", response_model=OpportunityListResponse)
 async def get_opportunities_by_naics(
     naics_code: str,
@@ -224,3 +210,18 @@ async def get_opportunity_stats(
         }
     }
 
+
+@router.get("/{opportunity_id}", response_model=OpportunityResponse)
+async def get_opportunity(
+    opportunity_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+) -> OpportunityResponse:
+    """Get a specific opportunity by ID."""
+    stmt = select(Opportunity).where(Opportunity.id == opportunity_id)
+    result = await db.execute(stmt)
+    opportunity = result.scalar_one_or_none()
+    
+    if not opportunity:
+        raise HTTPException(status_code=404, detail="Opportunity not found")
+    
+    return OpportunityResponse.model_validate(opportunity)

@@ -48,11 +48,15 @@ async def close_db() -> None:
 
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
-    """Get database session dependency."""
+    """Get database session dependency.
+    
+    Note: This dependency does NOT auto-commit. Endpoints are responsible
+    for calling await session.commit() when they want to persist changes.
+    This avoids double-commit issues and gives endpoints explicit control.
+    """
     async with async_session_factory() as session:
         try:
             yield session
-            await session.commit()
         except Exception:
             await session.rollback()
             raise
