@@ -67,8 +67,8 @@ class TestNAICSScoring:
             else:
                 break
         
-        # First 3 digits match: 541
-        assert match_length == 3
+        # First 4 digits match: 5415
+        assert match_length == 4
     
     def test_no_naics_match(self):
         """Different sector should score low."""
