@@ -55,7 +55,7 @@ class Organization(Base):
     # Timestamps
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow)
-    metadata: Mapped[dict] = mapped_column(JSONB, default=dict)
+    extra_metadata: Mapped[dict] = mapped_column(JSONB, default=dict, name="metadata")
     
     # Relationships
     relevance_scores: Mapped[List["RelevanceScore"]] = relationship(back_populates="organization", cascade="all, delete-orphan")
@@ -246,5 +246,5 @@ class IngestionLog(Base):
     records_updated: Mapped[int] = mapped_column(Integer, default=0)
     records_failed: Mapped[int] = mapped_column(Integer, default=0)
     error_message: Mapped[Optional[str]] = mapped_column(Text)
-    metadata: Mapped[dict] = mapped_column(JSONB, default=dict)
+    extra_metadata: Mapped[dict] = mapped_column(JSONB, default=dict, name="metadata")
 
