@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 7 6 18;
+    --foreground: 248 250 252;
+  }
+
+  * {
+    @apply border-cosmos-800;
+  }
+
+  body {
+    @apply bg-cosmos-950 text-slate-100;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  ::selection {
+    @apply bg-aureon-500/30 text-aureon-100;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 
+           bg-gradient-to-r from-aureon-500 to-aureon-600 
+           text-cosmos-950 font-semibold rounded-xl
+           hover:from-aureon-400 hover:to-aureon-500
+           transform hover:scale-[1.02] active:scale-[0.98]
+           transition-all duration-200 ease-out
+           shadow-lg shadow-aureon-500/25
+           hover:shadow-xl hover:shadow-aureon-500/40;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3
+           bg-cosmos-800/50 text-slate-100 font-medium rounded-xl
+           border border-cosmos-700/50
+           hover:bg-cosmos-700/50 hover:border-cosmos-600
+           transform hover:scale-[1.02] active:scale-[0.98]
+           transition-all duration-200 ease-out
+           backdrop-blur-sm;
+  }
+
+  .card {
+    @apply bg-cosmos-900/40 backdrop-blur-xl rounded-2xl 
+           border border-cosmos-800/50
+           shadow-xl shadow-black/20;
+  }
+
+  .card-interactive {
+    @apply card hover:border-cosmos-700/70 hover:bg-cosmos-900/60
+           transform hover:scale-[1.01] hover:-translate-y-0.5
+           transition-all duration-300 ease-out cursor-pointer;
+  }
+
+  .input {
+    @apply w-full px-4 py-3 bg-cosmos-900/60 border border-cosmos-700/50
+           rounded-xl text-slate-100 placeholder-slate-500
+           focus:outline-none focus:ring-2 focus:ring-aureon-500/50 focus:border-aureon-500/50
+           transition-all duration-200;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-gold {
+    @apply badge bg-aureon-500/20 text-aureon-300 border border-aureon-500/30;
+  }
+
+  .badge-blue {
+    @apply badge bg-cosmos-500/20 text-cosmos-300 border border-cosmos-500/30;
+  }
+
+  .badge-green {
+    @apply badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30;
+  }
+
+  .badge-red {
+    @apply badge bg-rose-500/20 text-rose-300 border border-rose-500/30;
+  }
+
+  .score-ring {
+    @apply relative inline-flex items-center justify-center;
+  }
+
+  .score-ring::before {
+    content: '';
+    @apply absolute inset-0 rounded-full border-4 border-cosmos-800;
+  }
+
+  .section-title {
+    @apply text-2xl font-display font-bold text-slate-100 mb-1;
+  }
+
+  .section-subtitle {
+    @apply text-slate-400 text-sm;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-cosmos-900/50;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-cosmos-700 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-cosmos-600;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent 
+           bg-gradient-to-r from-aureon-400 via-aureon-300 to-aureon-500;
+  }
+
+  .text-gradient-subtle {
+    @apply bg-clip-text text-transparent 
+           bg-gradient-to-r from-slate-200 to-slate-400;
+  }
+
+  .animate-stagger {
+    animation-delay: calc(var(--stagger, 0) * 100ms);
+  }
+
+  .glass {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10;
+  }
+}
+
