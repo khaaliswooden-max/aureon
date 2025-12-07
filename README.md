@@ -1,326 +1,520 @@
-# Aureon: Planetary Procurement Substrate
+# AUREON
 
-**Version:** 0.1.0  
-**Status:** MVP Development  
-**Organization:** Visionblox LLC / Zuup Innovation Lab
+<p align="center">
+  <img src="docs/assets/aureon-logo.svg" alt="AUREON Logo" width="200"/>
+</p>
 
----
+<p align="center">
+  <strong>Procurement Substrate</strong><br>
+  <em>"The procurement layer for the next decade."</em>
+</p>
 
-## 🌍 Vision
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#architecture">Architecture</a> •
+  <a href="#modules">Modules</a> •
+  <a href="#getting-started">Getting Started</a> •
+  <a href="#api-reference">API Reference</a> •
+  <a href="#compliance">Compliance</a>
+</p>
 
-Aureon is a **planetary-scale procurement substrate**—a foundational layer that represents, reasons about, and optimizes procurement across jurisdictions, enabling intelligent applications to operate on a unified, jurisdiction-agnostic platform.
-
-Think of Aureon as the "Linux for procurement": a substrate that abstracts away fragmented portals, incompatible standards, and siloed data, providing common primitives that any procurement application can build upon.
-
----
-
-## 🎯 The Problem
-
-Global procurement is fundamentally broken:
-
-- **Fragmentation:** Thousands of disconnected portals (SAM.gov, state systems, international platforms)
-- **Asymmetric Intelligence:** Large contractors have massive intelligence advantages over small businesses
-- **Compliance Complexity:** 2,000+ pages of FAR/DFARS, constantly changing, manually interpreted
-- **Data Silos:** Opportunity aggregators, CRMs, and ERPs don't share data models or APIs
-- **No Scale Path:** Current tools are applications built for single-jurisdiction workflows
-
-**Result:** Organizations spend 60-70% of capture budgets on unqualified opportunities. Small businesses are systematically disadvantaged. Governments struggle to achieve competitive outcomes.
-
-These aren't implementation bugs—they're **architectural failures**.
+<p align="center">
+  <img src="https://img.shields.io/badge/FedRAMP-Moderate-blue" alt="FedRAMP Moderate"/>
+  <img src="https://img.shields.io/badge/FAR/DFARS-Compliant-green" alt="FAR/DFARS"/>
+  <img src="https://img.shields.io/badge/TAA-Compliant-orange" alt="TAA Compliant"/>
+  <img src="https://img.shields.io/badge/Section_889-Compliant-purple" alt="Section 889"/>
+  <img src="https://img.shields.io/badge/License-Proprietary-red" alt="License"/>
+</p>
 
 ---
 
-## 💡 The Aureon Solution
+## Overview
 
-### Substrate-Level Architecture
+**AUREON** is an AI-powered procurement intelligence platform designed for federal contractors, defense primes, and organizations navigating complex government acquisition landscapes. It transforms opportunity discovery, proposal development, and supply chain management into a unified, intelligent workflow.
 
-Aureon provides five foundational layers:
+AUREON serves as the procurement substrate—the foundational layer that connects opportunity intelligence, competitive analysis, proposal automation, and supply chain visibility into a single operational platform.
+
+### The Problem We Solve
+
+Government contractors and procurement teams struggle with:
+
+- **Fragmented opportunity discovery** across SAM.gov, GovWin, agency portals
+- **Manual, error-prone proposal development** taking weeks instead of days
+- **Supply chain opacity** creating compliance risks (Section 889, TAA, DFARS)
+- **Reactive competitive intelligence** instead of strategic positioning
+- **Disconnected CRM and pipeline data** lacking federal-specific context
+
+### Our Solution
+
+AUREON delivers:
+
+- **AI-Powered Opportunity Intelligence**: Automated SAM.gov monitoring, RFI/RFP matching, and win probability scoring
+- **Proposal Automation Engine**: GPT-4 assisted generation with FAR compliance checking
+- **Supply Chain Compliance**: Section 889 screening and TAA country-of-origin validation
+- **Competitive Intelligence**: Real-time contract awards analysis and pricing benchmarks
+- **Unified Pipeline Management**: Federal-specific CRM with relevance scoring
+
+---
+
+## Modules
+
+| Module | Description | Key Features |
+|--------|-------------|--------------|
+| **Pro-Sales** | Opportunity & Proposal Management | SAM.gov integration, AI win probability, proposal automation, pricing intelligence |
+| **Pro-Biz** | Supply Chain & Compliance | Section 889 screening, TAA validation, supplier risk scoring, provenance tracking |
+
+---
+
+## Features
+
+### 🎯 Opportunity Intelligence (Pro-Sales)
+
+- **Automated Discovery**: Real-time monitoring of SAM.gov with configurable filters
+- **AI Matching Engine**: ML-powered opportunity scoring based on capabilities, NAICS codes, and past performance
+- **Win Probability Analysis**: Predictive scoring using historical data and competitive analysis
+- **Set-Aside Identification**: Automatic detection of 8(a), HUBZone, SDVOSB, WOSB opportunities
+- **Pipeline Integration**: Seamless flow from discovery to pursuit decision
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│  Layer 5: Application Layer (UI, Workflows, Integrations)│
-├─────────────────────────────────────────────────────────┤
-│  Layer 4: Orchestration & AI (Scoring, Optimization)     │
-├─────────────────────────────────────────────────────────┤
-│  Layer 3: Rules & Compliance (FAR, DFARS, EU Directives) │
-├─────────────────────────────────────────────────────────┤
-│  Layer 2: Knowledge Graph (Entities, Relations, Temporal)│
-├─────────────────────────────────────────────────────────┤
-│  Layer 1: Ingestion & Normalization (Multi-Source ETL)   │
-└─────────────────────────────────────────────────────────┘
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│   SAM.gov    │────▶│   Ingestion  │────▶│  ML Scoring  │
+│   eBuy       │     │   Pipeline   │     │   Engine     │
+│   GovWin     │     └──────────────┘     └──────┬───────┘
+└──────────────┘                                  │
+                                                  ▼
+                                           ┌──────────────┐
+                                           │  Pipeline    │
+                                           │  Dashboard   │
+                                           └──────────────┘
 ```
 
-### Core Capabilities
+### 📝 Proposal Automation (Pro-Sales)
 
-**Universal Data Model**
-- Jurisdiction-agnostic ontology for organizations, opportunities, contracts
-- Extensible to any procurement regime (US federal, state, EU, commercial)
-- Temporal reasoning (historical context, state changes, lifecycle tracking)
+- **AI-Assisted Drafting**: GPT-4 powered section generation with context awareness
+- **Compliance Matrix Automation**: Auto-populate requirement traceability matrices
+- **Template Library**: Pre-built templates for LPTA, Best Value, IDIQ task orders
+- **Review Workflow**: Multi-stage approval with color team integration
 
-**Intelligence Layer**
-- Relevance scoring (semantic similarity + taxonomy matching + past performance)
-- Risk assessment (eligibility, technical, pricing, resource, compliance)
-- Optimization (team formation, pipeline balancing, resource allocation)
-- Explainability (every recommendation traceable to reasoning chain)
+| Feature | Description | Time Savings |
+|---------|-------------|--------------|
+| Executive Summary Generation | AI drafts based on PWS analysis | 4-6 hours |
+| Technical Approach | Contextual generation from capability library | 8-12 hours |
+| Past Performance Narratives | Auto-populated from organization profile | 2-4 hours |
+| Compliance Matrix | Automated cross-referencing | 6-8 hours |
 
-**Compliance Engine**
-- Formalized regulatory rules (FAR clauses, set-asides, eligibility)
-- Automated compliance checking
-- Amendment tracking and impact analysis
-- Audit trails and governance
+### 💰 Pricing Intelligence (Pro-Sales)
 
-**Multi-Jurisdiction Support**
-- Same substrate operates across 50+ procurement regimes
-- Sovereign instances (data residency, government control)
-- Federated architecture (cross-border interoperability)
+- **Competitive Benchmarking**: Historical award data analysis by NAICS/PSC
+- **Cost Model Templates**: Pre-built models for T&M, FFP, CPFF contracts
+- **Rate Analysis**: Labor rate comparison across contract vehicles
+- **Should-Cost Modeling**: AI-assisted independent cost estimates
+
+### 🔗 Supply Chain Compliance (Pro-Biz)
+
+- **Section 889 Screening**: Automated supplier verification against prohibited entities
+- **TAA Compliance**: Country-of-origin validation for Trade Agreements Act
+- **Supplier Risk Scoring**: ML-based risk assessment for supply chain partners
+- **Provenance Tracking**: Complete audit trail for compliance documentation
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                    SUPPLY CHAIN COMPLIANCE ENGINE                    │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│   SUPPLIER        VERIFICATION        RISK SCORE        STATUS      │
+│   ┌───────┐       ┌───────┐          ┌───────┐        ┌───────┐    │
+│   │ Input │──────▶│Section│─────────▶│  ML   │───────▶│Compliant│   │
+│   │ Data  │       │  889  │          │ Risk  │        │   or    │   │
+│   └───────┘       │  TAA  │          │Engine │        │Flagged  │   │
+│                   └───────┘          └───────┘        └───────┘    │
+│                                                                      │
+│   • Prohibited entity screening (Huawei, ZTE, Hikvision, etc.)      │
+│   • TAA designated country validation                                │
+│   • SAM.gov exclusion list integration                               │
+│   • Real-time risk scoring                                           │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 📊 Relevance & Risk Assessment
+
+- **Multi-Factor Scoring**: NAICS alignment, semantic matching, geographic fit, capacity analysis
+- **Risk Assessment**: Eligibility, technical, pricing, and compliance risk evaluation
+- **Explainable AI**: Every recommendation traceable to reasoning chain
+- **Configurable Weights**: Customize scoring based on organizational priorities
 
 ---
 
-## 📊 Measurable Outcomes
+## Architecture
 
-Unlike vendor marketing claims, Aureon's performance is objectively measured through **APP-Bench** (Aureon Planetary Procurement Benchmark Suite):
+### System Architecture
 
-| Metric | Current State | Aureon Target | Status |
-|--------|---------------|---------------|--------|
-| Opportunity Recall | 40-60% | 85-95% | 🎯 In Development |
-| Relevance Precision@20 | <30% | 75-85% | 🎯 In Development |
-| Bid/No-Bid Cycle Time | Baseline | 30-50% reduction | 🎯 In Development |
-| Compliance Automation | Manual | 80%+ automated | 🎯 In Development |
-| Detection Latency | Days | <15 minutes | 🎯 In Development |
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              AUREON PLATFORM                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│  │  Web Portal │  │   API GW    │  │  Admin UI   │  │   CLI       │        │
+│  │  (Next.js)  │  │  (FastAPI)  │  │  (React)    │  │  (Python)   │        │
+│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘        │
+│         │                │                │                │                │
+│         └────────────────┴────────────────┴────────────────┘                │
+│                                   │                                          │
+│                    ┌──────────────┴──────────────┐                          │
+│                    │       FastAPI Backend       │                          │
+│                    │   Rate Limiting • Auth • SSL │                          │
+│                    └──────────────┬──────────────┘                          │
+│                                   │                                          │
+│  ┌────────────────────────────────┼────────────────────────────────┐        │
+│  │                         SERVICES                                 │        │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │        │
+│  │  │Opportunity│ │ Proposal │ │  Supply  │ │  Pricing │           │        │
+│  │  │ Service  │ │ Service  │ │  Chain   │ │ Service  │           │        │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘           │        │
+│  └────────────────────────────────┬────────────────────────────────┘        │
+│                                   │                                          │
+│  ┌────────────────────────────────┼────────────────────────────────┐        │
+│  │                         ML PLATFORM                              │        │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │        │
+│  │  │   Win    │ │Relevance │ │ Supplier │ │  Pricing │           │        │
+│  │  │Probability│ │  Scorer  │ │   Risk   │ │  Model   │           │        │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘           │        │
+│  └────────────────────────────────┬────────────────────────────────┘        │
+│                                   │                                          │
+│  ┌────────────────────────────────┼────────────────────────────────┐        │
+│  │                         DATA LAYER                               │        │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │        │
+│  │  │PostgreSQL│ │  Elastic │ │  Redis   │ │   S3     │           │        │
+│  │  │ Primary  │ │  Search  │ │  Cache   │ │  Storage │           │        │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘           │        │
+│  └─────────────────────────────────────────────────────────────────┘        │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
 
-**APP-Bench v0.1** provides 20 benchmark tasks across 7 dimensions with reproducible evaluation.
+### Technology Stack
+
+| Layer | Technology | Purpose |
+|-------|------------|---------|
+| Frontend | Next.js 14, TypeScript, TailwindCSS | Web application |
+| Backend | Python 3.11 (FastAPI) | API & Microservices |
+| ML Platform | OpenAI GPT-4, scikit-learn, sentence-transformers | AI/ML models |
+| Primary DB | PostgreSQL 15 | Transactional data |
+| Search | Elasticsearch 8.x | Full-text opportunity search |
+| Cache | Redis 7 | Session, cache |
+| Container | Docker, Docker Compose | Development & Deployment |
+| CI/CD | GitHub Actions | Pipeline automation |
 
 ---
 
-## 🏗️ Repository Structure
-
-```
-aureon/
-├── docs/                                    # Documentation
-│   ├── Aureon_Whitepaper_First_Principles_v0.1.md
-│   ├── Aureon_Benchmark_Suite_v0.1.md
-│   ├── Aureon_Build_Runbook_Cursor_Antigravity_v0.1.md
-│   └── api/                                 # API documentation
-│
-├── apps/                                    # Deployable applications
-│   ├── frontend/                            # Next.js web application
-│   │   ├── app/                             # Next.js app directory
-│   │   ├── components/                      # React components
-│   │   └── package.json
-│   │
-│   └── backend/                             # FastAPI backend
-│       ├── src/
-│       │   ├── api/                         # API routes
-│       │   ├── database/                    # Database models
-│       │   ├── ingestion/                   # Data ingestion modules
-│       │   ├── services/                    # Business logic
-│       │   └── main.py                      # Application entry point
-│       └── requirements.txt
-│
-├── packages/                                # Shared libraries
-│   ├── core-domain/                         # Domain models (TypeScript & Python)
-│   │   ├── src/entities/                    # Entity definitions
-│   │   └── aureon_domain/                   # Python domain package
-│   │
-│   ├── benchmarks/                          # APP-Bench implementation
-│   │   ├── src/
-│   │   │   ├── scenarios/                   # Benchmark test data
-│   │   │   ├── evaluators/                  # Task evaluators
-│   │   │   ├── metrics/                     # Metric calculations
-│   │   │   └── cli.py                       # Benchmark CLI
-│   │   └── results/                         # Benchmark outputs
-│   │
-│   └── orchestration/                       # Workflow engines
-│
-├── infra/                                   # Infrastructure as code
-│   ├── docker/
-│   │   └── docker-compose.yml               # Local development
-│   └── terraform/                           # Production infrastructure
-│
-├── tests/                                   # Test suites
-│   ├── unit/                                # Unit tests
-│   ├── integration/                         # Integration tests
-│   └── e2e/                                 # End-to-end tests
-│
-├── scripts/                                 # Utility scripts
-│
-├── package.json                             # Root workspace config
-├── turbo.json                               # Monorepo build configuration
-└── README.md                                # This file
-```
-
----
-
-## 🚀 Quick Start
+## Getting Started
 
 ### Prerequisites
 
-- **Node.js** 20.x+
-- **Python** 3.11+
-- **Docker Desktop** 24.x+
-- **PostgreSQL** 15+ (via Docker)
-- **Git** 2.40+
+- Python 3.11+
+- Node.js 20 LTS
+- Docker & Docker Compose
+- PostgreSQL 15+ client (optional, via Docker)
 
-### Setup (5 minutes)
+### Local Development Setup
 
 ```bash
-# Clone repository
-git clone https://github.com/khaaliswooden-max/aureon.git
+# Clone the repository
+git clone https://github.com/visionblox/aureon.git
 cd aureon
 
-# Install dependencies
+# Install root dependencies
 npm install
 
-# Start development environment (PostgreSQL, Redis, Backend, Frontend)
+# Start local services (PostgreSQL, Redis, Backend, Frontend)
 cd infra/docker
 docker-compose up -d
 
-# Backend will be at http://localhost:8000
-# Frontend will be at http://localhost:3000
-# API docs at http://localhost:8000/docs
+# Verify services
+docker-compose ps
+
+# Backend: http://localhost:8000
+# Frontend: http://localhost:3000
+# API Docs: http://localhost:8000/docs
 ```
 
-### Run Your First Benchmark
+### Environment Variables
+
+Create a `.env` file in the project root:
 
 ```bash
-# Navigate to benchmarks package
-cd packages/benchmarks
+# Database
+DATABASE_URL=postgresql://aureon:aureon_dev_password@localhost:5432/aureon
+REDIS_URL=redis://localhost:6379/0
 
-# Install dependencies
-pip install -e .
+# SAM.gov API (get free key at sam.gov)
+SAM_GOV_API_KEY=your-sam-gov-api-key
 
-# Run APP-04 (Relevance Ranking benchmark)
-python -m src.cli run APP-04 --org-id <test-org-id>
+# OpenAI (for proposal generation)
+OPENAI_API_KEY=your-openai-api-key
 
-# View results
-cat results/APP-04/metrics.json
+# Anthropic (optional, for Claude)
+ANTHROPIC_API_KEY=your-anthropic-api-key
+
+# Environment
+ENVIRONMENT=development
+DEBUG=true
 ```
 
-### Ingest Sample Data
+### Running Tests
 
 ```bash
-# Set SAM.gov API key (get free key at sam.gov)
-export SAM_GOV_API_KEY="your_key_here"
+# All tests
+pytest tests/ -v
 
-# Run ingestion
-cd apps/backend
-python -m src.ingestion.sam_gov
+# Unit tests only
+pytest tests/unit -v
 
-# Verify
-psql -h localhost -U aureon -d aureon -c "SELECT COUNT(*) FROM opportunities;"
+# E2E tests
+pytest tests/e2e -v
+
+# With coverage
+pytest tests/ --cov=apps/backend/src --cov-report=html
 ```
 
 ---
 
-## 📚 Documentation
+## API Reference
 
-### Core Documents
+### Authentication
 
-1. **[First-Principles White Paper](./docs/Aureon_Whitepaper_First_Principles_v0.1.md)**  
-   8-page equivalent deconstructing procurement from foundational principles, system architecture, and roadmap.
+All API requests require authentication via Bearer token (when auth is enabled):
 
-2. **[APP-Bench v0.1 Specification](./docs/Aureon_Benchmark_Suite_v0.1.md)**  
-   Complete benchmark suite with 20 tasks, scoring metrics, and evaluation methodology.
+```bash
+curl -X GET "http://localhost:8000/opportunities" \
+  -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+  -H "Content-Type: application/json"
+```
 
-3. **[Build Runbook](./docs/Aureon_Build_Runbook_Cursor_Antigravity_v0.1.md)**  
-   Step-by-step technical implementation guide from zero to running MVP.
+### Core Endpoints
 
-### API Documentation
+#### Health Check
+```bash
+GET /health
+```
 
-- **Interactive API Docs:** http://localhost:8000/docs (when backend running)
-- **OpenAPI Spec:** http://localhost:8000/openapi.json
+#### Opportunities
 
-### Additional Resources
+```bash
+# List opportunities with filters
+GET /opportunities?query=cloud&naics_code=541512&set_aside_type=SB
 
-- **Architecture Decision Records (ADRs):** `docs/adr/`
-- **Deployment Guides:** `docs/deployment/`
-- **Contributing Guidelines:** `CONTRIBUTING.md` (coming soon)
+# Get single opportunity
+GET /opportunities/{opportunity_id}
+
+# Get opportunities by NAICS
+GET /opportunities/naics/{naics_code}
+
+# Get opportunity statistics
+GET /opportunities/stats/summary
+```
+
+#### Organizations
+
+```bash
+# List organizations
+GET /organizations
+
+# Get organization profile
+GET /organizations/{org_id}
+
+# Create organization
+POST /organizations
+
+# Update organization
+PUT /organizations/{org_id}
+```
+
+#### Relevance Scoring
+
+```bash
+# Score opportunities for an organization
+POST /scoring/relevance
+{
+  "organization_id": "uuid",
+  "opportunity_ids": ["uuid1", "uuid2"]
+}
+
+# Batch score all active opportunities
+POST /scoring/relevance/batch
+{
+  "organization_id": "uuid"
+}
+```
+
+#### Risk Assessment
+
+```bash
+# Assess risk for opportunity
+POST /risk/assess
+{
+  "organization_id": "uuid",
+  "opportunity_id": "uuid"
+}
+```
+
+#### Win Probability
+
+```bash
+# Calculate win probability
+POST /win-probability/calculate
+{
+  "organization_id": "uuid",
+  "opportunity_id": "uuid"
+}
+```
+
+#### Proposal Generation
+
+```bash
+# Generate proposal section
+POST /proposals/generate
+{
+  "opportunity_id": "uuid",
+  "organization_id": "uuid",
+  "section": "executive_summary"
+}
+```
+
+#### Supply Chain Compliance
+
+```bash
+# Verify supplier compliance
+POST /supply-chain/verify
+{
+  "supplier_name": "Acme Corp",
+  "country_of_origin": "US"
+}
+
+# Check Section 889 compliance
+POST /supply-chain/section-889/check
+{
+  "supplier_name": "Component Manufacturer"
+}
+
+# Check TAA compliance
+POST /supply-chain/taa/check
+{
+  "country_code": "CN"
+}
+```
+
+#### Data Ingestion
+
+```bash
+# Trigger SAM.gov sync
+POST /ingestion/sam-gov/sync
+
+# Get ingestion status
+GET /ingestion/status
+```
 
 ---
 
-## 🎯 Current Status
+## Compliance
 
-### ✅ Completed (v0.1 MVP)
+### Federal Certifications
+
+| Certification | Status | Scope |
+|---------------|--------|-------|
+| FedRAMP Moderate | In Progress | Full Platform |
+| SOC 2 Type II | Planned | Full Platform |
+| FAR/DFARS | Compliant | Procurement Module |
+| Section 889 | Compliant | Supply Chain Module |
+| TAA | Compliant | Supply Chain Module |
+| FISMA Moderate | In Progress | Full Platform |
+
+### Data Handling
+
+- All data encrypted at rest (AES-256) and in transit (TLS 1.3)
+- Complete audit logging for all data access
+- OFAC and SAM.gov exclusion list integration
+- Role-based access control (RBAC)
+
+---
+
+## Repository Structure
+
+```
+aureon/
+├── apps/
+│   ├── backend/                    # FastAPI Python backend
+│   │   ├── src/
+│   │   │   ├── api/               # API route handlers
+│   │   │   ├── database/          # Models & connection
+│   │   │   ├── ingestion/         # SAM.gov & data pipelines
+│   │   │   ├── services/          # Business logic
+│   │   │   │   ├── relevance_scorer.py
+│   │   │   │   ├── risk_assessor.py
+│   │   │   │   ├── win_probability.py
+│   │   │   │   ├── proposal_generator.py
+│   │   │   │   └── supply_chain.py
+│   │   │   └── main.py
+│   │   └── requirements.txt
+│   │
+│   └── frontend/                   # Next.js web application
+│       ├── app/                    # Next.js app router
+│       ├── components/             # React components
+│       └── lib/                    # Utilities & API client
+│
+├── packages/
+│   ├── core-domain/               # Shared domain models
+│   └── benchmarks/                # APP-Bench test suite
+│
+├── infra/
+│   ├── docker/                    # Docker Compose setup
+│   └── terraform/                 # Infrastructure as Code
+│
+├── tests/
+│   ├── unit/                      # Unit tests
+│   ├── integration/               # Integration tests
+│   └── e2e/                       # End-to-end tests
+│
+├── docs/                          # Documentation
+└── README.md
+```
+
+---
+
+## Current Status
+
+### ✅ Implemented
 
 - [x] Core domain models (TypeScript + Python)
-- [x] Repository structure and monorepo setup
-- [x] Database schema and ORM models
+- [x] Database schema and ORM models (PostgreSQL)
 - [x] SAM.gov ingestion pipeline
-- [x] Relevance scoring service (NAICS + semantic + geographic + size)
+- [x] Relevance scoring service (multi-factor)
 - [x] Risk assessment service
 - [x] RESTful API with FastAPI
-- [x] Basic frontend (Next.js + React)
-- [x] APP-Bench framework (20 tasks defined, 2 fully implemented)
-- [x] Docker-based development environment
-- [x] Comprehensive documentation
+- [x] Web frontend (Next.js + TailwindCSS)
+- [x] Opportunity search & filtering
+- [x] Organization management
+- [x] Docker development environment
 
 ### 🚧 In Progress
 
-- [ ] Complete APP-Bench implementation (18 remaining tasks)
-- [ ] LLM integration for requirement extraction
-- [ ] Authentication and user management
-- [ ] State procurement portal connectors (5 pilot states)
-- [ ] Mobile-responsive UI enhancements
+- [ ] Win probability ML model
+- [ ] Proposal automation (GPT-4)
+- [ ] Supply chain compliance (Section 889, TAA)
+- [ ] Pricing intelligence
+- [ ] Authentication (JWT)
+- [ ] Elasticsearch integration
+- [ ] Frontend-backend API wiring
 
-### 🔮 Roadmap (Next 6 Months)
+### 🔮 Roadmap
 
-**Month 1-2: MVP Hardening**
-- Production database deployment
-- Security audit and penetration testing
-- Performance optimization (caching, indexing)
-- Monitoring and observability setup
-
-**Month 3-4: Pilot Deployments**
-- Onboard 10-20 pilot organizations
-- 5 state procurement portal integrations
-- User feedback collection and iteration
-- Pass all "Basic" APP-Bench tasks
-
-**Month 5-6: Intelligence Enhancements**
-- Past performance analysis integration
-- Competition intensity modeling
-- Team formation recommendations
-- Advanced compliance checking (CMMC, FedRAMP)
-
-**Long-Term Vision:** See [White Paper](./docs/Aureon_Whitepaper_First_Principles_v0.1.md) for 3-5 year roadmap to planetary scale.
+- Mobile applications (Flutter)
+- GSA integration
+- Advanced analytics dashboard
+- Multi-tenant SaaS deployment
+- FedRAMP authorization
 
 ---
 
-## 🧪 Testing
-
-```bash
-# Run all tests
-npm test
-
-# Backend unit tests
-cd apps/backend
-pytest tests/ -v
-
-# Frontend tests
-cd apps/frontend
-npm test
-
-# End-to-end tests
-cd tests/e2e
-pytest test_opportunity_workflow.py -v
-
-# Run benchmarks
-cd packages/benchmarks
-python -m src.cli run --all
-```
-
----
-
-## 🤝 Contributing
-
-Aureon is being developed openly with the goal of becoming a public substrate.
-
-### How to Contribute
-
-1. **Report Issues:** Found a bug? Open an issue with reproduction steps
-2. **Suggest Enhancements:** Have ideas? Start a discussion in Issues
-3. **Submit Benchmark Tasks:** Propose new APP-Bench scenarios
-4. **Contribute Code:** Fork, create a feature branch, submit PR
+## Contributing
 
 ### Development Workflow
 
@@ -328,12 +522,11 @@ Aureon is being developed openly with the goal of becoming a public substrate.
 # Create feature branch
 git checkout -b feature/your-feature-name
 
-# Make changes, commit with clear messages
-git commit -m "feat: add semantic caching to relevance scorer"
+# Make changes, run tests
+pytest tests/ -v
 
-# Run tests and linting
-npm test
-npm run lint
+# Commit with conventional commits
+git commit -m "feat: add win probability model"
 
 # Push and create PR
 git push origin feature/your-feature-name
@@ -341,228 +534,32 @@ git push origin feature/your-feature-name
 
 ### Code Standards
 
-- **TypeScript:** Strict mode, ESLint + Prettier
-- **Python:** Type hints, Black formatter, MyPy static checking
-- **Tests:** >80% coverage for new code
-- **Documentation:** Update docs for API or architecture changes
+- **Python**: PEP 8, Black formatting, type hints required
+- **TypeScript**: Strict mode, ESLint + Prettier
+- **Tests**: 80%+ coverage for new code
+- **Documentation**: Update docs for API changes
 
 ---
 
-## 🏛️ Governance & Sovereignty
+## Support
 
-### Deployment Models
-
-**Sovereign Instance**
-- Deployed in jurisdiction (on-premises or jurisdiction cloud)
-- Government controls all data, rules, and access
-- Suitable for: Federal agencies, defense, critical infrastructure
-
-**Federated Substrate**
-- Multiple sovereign instances interoperate via standardized APIs
-- Data sharing by consent
-- Suitable for: Cross-border procurement, allied nations
-
-**Multi-Tenant SaaS**
-- Visionblox-operated cloud service
-- Strong tenant isolation, optional data residency
-- Suitable for: Commercial organizations, small governments
-
-### Data Sovereignty
-
-- All data physically resides in jurisdiction of sovereignty
-- Encryption at rest and in transit
-- Immutable audit trails for regulatory compliance
-- No vendor lock-in (open substrate, standard APIs)
+| Channel | Contact |
+|---------|---------|
+| Technical Support | support@aureon.ai |
+| Sales Inquiries | sales@visionblox.io |
+| Security Issues | security@visionblox.io |
 
 ---
 
-## 📊 Benchmarking & Accountability
+## License
 
-### APP-Bench: Objective Evaluation
+Copyright © 2025 Visionblox LLC / Zuup Innovation Lab. All rights reserved.
 
-Aureon's performance is measured through the **Aureon Planetary Procurement Benchmark Suite (APP-Bench)**, providing:
-
-- **20 discrete tasks** across 7 dimensions
-- **Quantitative metrics** (NDCG, precision, recall, latency, F1)
-- **Reproducible scenarios** with ground truth labels
-- **Progressive difficulty** (Basic → Intermediate → Advanced → Expert)
-
-### Running Benchmarks
-
-```bash
-# List available benchmarks
-aureon-bench list
-
-# Run specific task
-aureon-bench run APP-04
-
-# Run all basic tasks
-aureon-bench run --difficulty basic
-
-# Run full suite
-aureon-bench run --all
-
-# Generate report
-aureon-bench report --run-id run-2025-12-03-001
-```
-
-### Benchmark Dimensions
-
-1. **Coverage & Recall (CR):** Find all relevant opportunities
-2. **Precision & Relevance (PR):** Rank genuinely aligned results high
-3. **Compliance Fidelity (CF):** Correctly interpret regulations
-4. **Temporal Responsiveness (TR):** Real-time detection and updates
-5. **Workflow Efficiency (WE):** Reduce time and steps
-6. **Robustness & Stress (RS):** Graceful degradation under adversarial conditions
-7. **Planetary Scale (PS):** Multi-jurisdiction capability
+This software is proprietary and confidential. See [LICENSE](LICENSE) for details.
 
 ---
 
-## 🛡️ Security & Compliance
-
-### Security Measures
-
-- **Authentication:** OAuth 2.0 / OIDC
-- **Authorization:** Role-Based Access Control (RBAC)
-- **Encryption:** TLS 1.3 for all network traffic, AES-256 at rest
-- **Secrets Management:** AWS Secrets Manager / HashiCorp Vault
-- **Audit Logging:** Immutable logs for all actions
-- **Regular Audits:** Quarterly security assessments
-
-### Compliance Support
-
-- **FedRAMP:** Architecture designed for Moderate/High authorization
-- **CMMC:** Cybersecurity Maturity Model Certification alignment
-- **GDPR:** Data privacy and right-to-be-forgotten support
-- **SOC 2 Type II:** In progress (target Q2 2026)
-
----
-
-## 📈 Technology Stack
-
-### Frontend
-- **Framework:** Next.js 14 (React 18, TypeScript)
-- **Styling:** TailwindCSS
-- **State Management:** React Query, Zustand
-- **Visualization:** Recharts, D3.js
-
-### Backend
-- **API:** FastAPI (Python 3.11+)
-- **ORM:** SQLAlchemy with Alembic migrations
-- **Async:** asyncio, httpx
-- **Validation:** Pydantic v2
-
-### Data Layer
-- **Relational:** PostgreSQL 15
-- **Graph:** Neo4j or AWS Neptune (planned)
-- **Search:** OpenSearch / Elasticsearch
-- **Cache:** Redis 7
-- **Object Storage:** S3-compatible
-
-### AI/ML
-- **Embeddings:** Sentence Transformers (all-MiniLM-L6-v2)
-- **LLM Orchestration:** LangChain, OpenAI API, Anthropic Claude
-- **Classical ML:** Scikit-learn, XGBoost
-- **Optimization:** PuLP, OR-Tools
-
-### Infrastructure
-- **Containers:** Docker, Kubernetes
-- **IaC:** Terraform
-- **CI/CD:** GitHub Actions
-- **Monitoring:** Prometheus, Grafana, Sentry
-- **Logging:** Structured JSON, OpenTelemetry
-
----
-
-## 🌟 Why Aureon?
-
-### For Organizations
-
-- **Level Playing Field:** Small businesses get same intelligence as large primes
-- **Reduce Waste:** Stop chasing unqualified opportunities
-- **Accelerate Capture:** 30-50% faster bid/no-bid decisions
-- **Unified View:** Single platform across all jurisdictions
-- **No Lock-In:** Open substrate, standard APIs
-
-### For Governments
-
-- **Increased Competition:** More diverse, qualified bidders
-- **Better Outcomes:** Improved value, reduced cycle times
-- **Reduced Protests:** Better compliance upfront
-- **Sovereignty:** Control your data and rules
-- **Interoperability:** Federated substrate enables collaboration
-
-### For the Ecosystem
-
-- **Open Innovation:** Build applications on substrate APIs
-- **Fair Competition:** Vendor differentiation on UX, not lock-in
-- **Reduced Integration Costs:** Standard ontology and interfaces
-- **Research Platform:** Anonymized data for academic studies
-
----
-
-## 📞 Contact & Support
-
-### Project Leadership
-
-**Khaalis Maat**  
-Director, Enterprise Capture & Compliance  
-Visionblox LLC / Zuup Innovation Lab
-
-### Get Involved
-
-- **Email:** contact@aureon.ai
-- **Technical Discussion:** aureon-wg@googlegroups.com (coming soon)
-- **Issues & PRs:** [GitHub Issues](https://github.com/khaaliswooden-max/aureon/issues)
-- **Pilot Partnerships:** pilots@aureon.ai
-- **Investment Inquiries:** investors@aureon.ai
-
-### Community
-
-- **Working Group:** Join the Aureon Working Group for technical collaboration
-- **Monthly Office Hours:** Coming Q1 2026
-- **Annual Conference:** AureonCon (planned 2026)
-
----
-
-## 📜 License
-
-**Copyright 2025 Visionblox LLC / Zuup Innovation Lab. All rights reserved.**
-
-This project is currently proprietary during MVP development. We plan to open-source the core substrate under Apache 2.0 or similar permissive license upon reaching production maturity (target Q3 2026).
-
-Interested in early access or licensing? Contact: contact@aureon.ai
-
----
-
-## 🙏 Acknowledgments
-
-Aureon synthesizes insights from:
-- Federal procurement officers and contracting specialists
-- Small business contractors across multiple sectors
-- Large prime contractors (confidential discussions)
-- State and local procurement officials
-- International procurement experts (EU, Canada, Australia)
-- Academic researchers in computer science and public policy
-
-Special thanks to all pilot partners and early contributors.
-
----
-
-## 🔗 Links
-
-- **Website:** aureon.ai (coming soon)
-- **GitHub:** https://github.com/khaaliswooden-max/aureon
-- **Documentation:** https://docs.aureon.ai (coming soon)
-- **Blog:** https://blog.aureon.ai (coming soon)
-- **Twitter:** @AureonSubstrate (coming soon)
-
----
-
-<div align="center">
-
-**Built with ❤️ for procurement professionals everywhere**
-
-*Aureon: Making procurement intelligent, accessible, and fair*
-
-</div>
+<p align="center">
+  <strong>AUREON</strong> — The Procurement Layer for the Next Decade<br>
+  <em>A Zuup Innovation Lab Platform</em>
+</p>

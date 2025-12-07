@@ -1,6 +1,12 @@
 """Business logic services for Aureon."""
-from src.services.relevance_scorer import RelevanceScorer
-from src.services.risk_assessor import RiskAssessor
-
-__all__ = ["RelevanceScorer", "RiskAssessor"]
+# Use lazy imports to avoid circular dependencies
+__all__ = [
+    "RelevanceScorer", 
+    "RiskAssessor",
+    "WinProbabilityModel",
+    "ProposalGenerator",
+    "SupplyChainComplianceService",
+    "PricingIntelligenceService",
+    "AuthService",
+]
 

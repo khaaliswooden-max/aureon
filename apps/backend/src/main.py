@@ -11,7 +11,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from src.config import get_settings
-from src.api import opportunities, organizations, scoring, risk, health, ingestion
+from src.api import (
+    opportunities, organizations, scoring, risk, health, ingestion,
+    win_probability, proposals, supply_chain, pricing, auth
+)
 from src.database.connection import init_db, close_db
 
 # Configure structured logging
@@ -114,10 +117,15 @@ async def global_exception_handler(request, exc):
 
 # Include routers
 app.include_router(health.router, tags=["Health"])
+app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 app.include_router(opportunities.router, prefix="/opportunities", tags=["Opportunities"])
 app.include_router(organizations.router, prefix="/organizations", tags=["Organizations"])
 app.include_router(scoring.router, prefix="/scoring", tags=["Relevance Scoring"])
 app.include_router(risk.router, prefix="/risk", tags=["Risk Assessment"])
+app.include_router(win_probability.router, prefix="/win-probability", tags=["Win Probability"])
+app.include_router(proposals.router, prefix="/proposals", tags=["Proposal Generation"])
+app.include_router(supply_chain.router, prefix="/supply-chain", tags=["Supply Chain Compliance"])
+app.include_router(pricing.router, prefix="/pricing", tags=["Pricing Intelligence"])
 app.include_router(ingestion.router, prefix="/ingestion", tags=["Data Ingestion"])
 
 
